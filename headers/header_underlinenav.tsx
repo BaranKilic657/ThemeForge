@@ -1,7 +1,25 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Header() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Responsive breakpoint
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+  }, [isMenuOpen]);
+
   const bar: React.CSSProperties = {
     maxWidth: "1200px",
     margin: "0 auto",
@@ -12,8 +30,6 @@ export default function Header() {
     height: 70,
   };
 
-  const linkWrap: React.CSSProperties = { display: "flex", gap: 26, alignItems: "center" };
-
   const underline: React.CSSProperties = {
     position: "absolute",
     left: 0,
@@ -23,95 +39,171 @@ export default function Header() {
     borderRadius: 999,
   };
 
-  const menuGrid: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-    gap: 16,
-    padding: 16,
-  };
-
   return (
-    <header
-      className="bg-surface-alt shadow-accent-hover"
-      style={{ position: "sticky", top: 0, zIndex: 1000 }}
-    >
-      <div style={bar}>
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, position: "relative" }}>
-          <div className="accent" style={{ width: 24, height: 24, borderRadius: 6 }} />
-          <span className="text-main" style={{ fontWeight: 700, fontSize: 18 }}>FlowDesk</span>
-        </div>
+    <>
+      <header
+        className="bg-surface-alt shadow-accent-hover"
+        style={{ position: "sticky", top: 0, zIndex: 1000 }}
+      >
+        <div style={bar}>
+          {/* Logo */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, position: "relative" }}>
+            <div className="accent" style={{ width: 24, height: 24, borderRadius: 6 }} />
+            <span className="text-main" style={{ fontWeight: 700, fontSize: 18 }}>FlowDesk</span>
+          </div>
 
-        {/* Primary nav with animated underline (via absolutely-positioned gradient) */}
-        <nav style={linkWrap}>
-          {["Home", "Products", "Docs", "Blog"].map((item) => (
-            <a
-              key={item}
-              className="text-accent-hover"
-              href="#"
-              style={{ position: "relative", paddingBottom: 6, fontSize: 14 }}
-              onMouseEnter={(e) => {
-                const u = (e.currentTarget.querySelector(".u") as HTMLDivElement) || null;
-                if (u) u.style.opacity = "1";
+          {/* Desktop nav */}
+          {!isMobile && (
+            <nav style={{ display: "flex", gap: 26, alignItems: "center" }}>
+              {["Home", "Products", "Docs", "Blog"].map((item) => (
+                <a
+                  key={item}
+                  className="text-accent-hover"
+                  href="#"
+                  style={{ position: "relative", paddingBottom: 6, fontSize: 14 }}
+                  onMouseEnter={(e) => {
+                    const u = (e.currentTarget.querySelector(".u") as HTMLDivElement) || null;
+                    if (u) u.style.opacity = "1";
+                  }}
+                  onMouseLeave={(e) => {
+                    const u = (e.currentTarget.querySelector(".u") as HTMLDivElement) || null;
+                    if (u) u.style.opacity = "0";
+                  }}
+                >
+                  {item}
+                  <div
+                    className="bg-gradient-accent u fade-in"
+                    style={{ ...underline, opacity: 0, transition: "opacity var(--transition-speed) ease" }}
+                  />
+                </a>
+              ))}
+            </nav>
+          )}
+
+          {/* Actions */}
+          {!isMobile ? (
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <button className="accent-outline" style={{ padding: "8px 12px", borderRadius: 8 }}>
+                Sign in
+              </button>
+              <button className="btn-gradient hover-lift" style={{ padding: "10px 14px", borderRadius: 10 }}>
+                Launch App
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 22,
+                color: "var(--color-text, #333)",
+                padding: "6px",
               }}
-              onMouseLeave={(e) => {
-                const u = (e.currentTarget.querySelector(".u") as HTMLDivElement) || null;
-                if (u) u.style.opacity = "0";
-              }}
+              aria-label="Toggle menu"
             >
-              {item}
-              <div
-                className="bg-gradient-accent u fade-in"
-                style={{ ...underline, opacity: 0, transition: "opacity var(--transition-speed) ease" }}
-              />
-            </a>
+              {isMenuOpen ? "✕" : "☰"}
+            </button>
+          )}
+        </div>
+      </header>
+
+      {/* Mobile overlay */}
+      {isMobile && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            backdropFilter: "blur(3px)",
+            opacity: isMenuOpen ? 1 : 0,
+            visibility: isMenuOpen ? "visible" : "hidden",
+            transition: "opacity 0.3s ease, visibility 0.3s ease",
+            zIndex: 999,
+          }}
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile menu - with underline accents */}
+      {isMobile && (
+        <div
+          className="bg-surface-alt shadow-surface"
+          style={{
+            position: "fixed",
+            top: 70,
+            right: 0,
+            width: "280px",
+            display: isMenuOpen ? "flex" : "none",
+            flexDirection: "column",
+            padding: "20px",
+            gap: 8,
+            borderBottomLeftRadius: 12,
+            zIndex: 1000,
+            animation: isMenuOpen ? "underlineSlide 0.3s ease" : "none",
+          }}
+        >
+          {["Home", "Products", "Docs", "Blog"].map((item) => (
+            <div key={item} style={{ position: "relative", paddingBottom: 8, borderBottom: "2px solid transparent" }}>
+              <a
+                href="#"
+                className="text-accent-hover"
+                style={{
+                  display: "block",
+                  padding: "12px 8px",
+                  fontSize: 15,
+                  fontWeight: 500,
+                }}
+                onClick={() => setIsMenuOpen(false)}
+                onMouseEnter={(e) => {
+                  const border = e.currentTarget.parentElement;
+                  if (border) border.style.borderBottom = "2px solid var(--color-accent)";
+                }}
+                onMouseLeave={(e) => {
+                  const border = e.currentTarget.parentElement;
+                  if (border) border.style.borderBottom = "2px solid transparent";
+                }}
+              >
+                {item}
+              </a>
+            </div>
           ))}
 
-          {/* Native details-based mega menu */}
-          <details style={{ position: "relative" }}>
-            <summary className="text-accent-hover" style={{ listStyle: "none", cursor: "pointer", fontSize: 14 }}>
-              Solutions
-            </summary>
-            <div
-              className="bg-surface shadow-surface slide-up"
-              style={{
-                position: "absolute",
-                right: 0,
-                top: 32,
-                minWidth: 520,
-                borderRadius: 12,
-                border: "1px solid var(--color-border)",
-              }}
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 8 }}>
+            <button
+              className="accent-outline"
+              style={{ padding: "10px 12px", borderRadius: 8, width: "100%" }}
+              onClick={() => setIsMenuOpen(false)}
             >
-              <div style={menuGrid}>
-                {[
-                  { t: "Automation", d: "Triggers, jobs, queues" },
-                  { t: "Analytics", d: "Dashboards & events" },
-                  { t: "Integrations", d: "200+ connectors" },
-                  { t: "Security", d: "SSO, SCIM, audit" },
-                  { t: "Mobile", d: "SDKs for iOS/Android" },
-                  { t: "AI Suite", d: "Embeddings & agents" },
-                ].map((x) => (
-                  <a key={x.t} className="text-accent-hover hover-lift" href="#" style={{ padding: 12, borderRadius: 10 }}>
-                    <div className="text-main" style={{ fontWeight: 700 }}>{x.t}</div>
-                    <div className="text-muted" style={{ fontSize: 12 }}>{x.d}</div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </details>
-        </nav>
-
-        {/* Actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <button className="accent-outline" style={{ padding: "8px 12px", borderRadius: 8 }}>
-            Sign in
-          </button>
-          <button className="btn-gradient hover-lift" style={{ padding: "10px 14px", borderRadius: 10 }}>
-            Launch App
-          </button>
+              Sign in
+            </button>
+            <button
+              className="btn-gradient hover-lift"
+              style={{ padding: "12px 14px", borderRadius: 10, width: "100%" }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Launch App
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      )}
+
+      <style>{`
+        @keyframes underlineSlide {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
+    </>
   );
 }
