@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import DynamicHeader from "@/components/dynamicheader";
+import DynamicFooter from "@/components/dynamicfooter";
 import HeaderSwitcher from "@/components/headerswitcher";
-import Footer from "@/footers/footer_minimalcentered";
+import ThemeSwitcher from "@/components/themeswitcher";
+import FooterSwitcher from "@/components/footerswitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,8 +61,10 @@ export default function RootLayout({
       >
         <DynamicHeader />
         <HeaderSwitcher />
+        <ThemeSwitcher />
+        <FooterSwitcher />
         {children}
-        <Footer />
+        <DynamicFooter />
         {/* <footer className="py-8 text-center text-sm text-muted border-t border-base">
           Designed with ❤️ by your Theme Architect.
         </footer> */}

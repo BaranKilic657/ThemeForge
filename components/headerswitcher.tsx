@@ -66,19 +66,19 @@ export default function HeaderSwitcher() {
   const currentLabel = headers.find((h) => h.name === header)?.label || header;
 
   return (
-    <div ref={ref} className="fixed bottom-20 right-6 z-50">
+    <div ref={ref} className="fixed bottom-52 right-4 sm:right-6 z-50">
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen((o) => !o)}
         title={`Header: ${currentLabel}`}
-        className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-md px-3 py-2 hover:bg-[var(--color-surface-alt)] transition-colors flex items-center gap-2"
+        className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-md px-3 py-2 hover:bg-[var(--color-surface-alt)] transition-colors flex items-center gap-2 text-sm sm:text-base"
       >
         📐 <span className="hidden sm:inline">{currentLabel}</span>
       </button>
 
       {/* Palette dropdown */}
       {open && (
-        <div className="absolute bottom-14 right-0 w-80 max-h-[60vh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] shadow-2xl rounded-xl p-3 space-y-2">
+        <div className="absolute bottom-14 right-0 w-[90vw] max-w-[320px] max-h-[60vh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] shadow-2xl rounded-xl p-3 space-y-2">
           <h3 className="text-sm font-medium text-[var(--color-text-muted)] mb-1 px-1">Choose Header Style</h3>
           <div className="space-y-2">
             {headers.map((h) => {

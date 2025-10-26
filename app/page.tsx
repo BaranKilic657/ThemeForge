@@ -1,17 +1,11 @@
 "use client";
 import Image from "next/image";
-import ThemeSwitcher from "@/components/themeswitcher";
 
 export default function ThemeShowcase() {
   return (
-    <div className="flex min-h-screen flex-col bg-surface font-sans text-main transition-colors">
-      {/* Floating theme switcher */}
-      <div className="fixed right-6 top-6 z-50">
-        <ThemeSwitcher />
-      </div>
-
+    <div className="flex min-h-screen flex-col bg-surface font-sans text-main transition-colors overflow-x-hidden">
       {/* Header */}
-      <header className="bg-surface-alt shadow-surface py-16 text-center fade-in">
+      <header className="bg-surface-alt shadow-surface py-12 sm:py-16 text-center fade-in px-4">
         <Image
           src="/next.svg"
           alt="Next.js logo"
@@ -20,21 +14,21 @@ export default function ThemeShowcase() {
           priority
           className="mx-auto mb-4 invert-[var(--invert-logo,0)]"
         />
-        <h1 className="text-4xl font-semibold tracking-tight text-highlight mb-3">
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-highlight mb-3">
           Theme System Showcase
         </h1>
-        <p className="text-lg text-muted max-w-xl mx-auto">
+        <p className="text-base sm:text-lg text-muted max-w-xl mx-auto px-4">
           Explore how each color, layer, and effect behaves under different themes.
           Click the 🎨 button to switch between themes.
         </p>
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-col gap-20 py-20 px-8 sm:px-16 md:px-32 bg-surface-gradient transition-colors">
+      <main className="flex flex-col gap-12 sm:gap-20 py-12 sm:py-20 px-4 sm:px-8 md:px-16 lg:px-32 bg-surface-gradient transition-colors">
         {/* Section 1: Base Surfaces */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">1. Surfaces & Layers</h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">1. Surfaces & Layers</h2>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-2xl p-8 bg-surface shadow-surface hover-lift">
               <h3 className="text-lg font-medium mb-2">Surface</h3>
               <p className="text-muted text-sm">
@@ -58,8 +52,8 @@ export default function ThemeShowcase() {
 
         {/* Section 2: Text Hierarchy */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">2. Text Colors</h2>
-          <div className="space-y-4 bg-surface-alt rounded-2xl p-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">2. Text Colors</h2>
+          <div className="space-y-3 sm:space-y-4 bg-surface-alt rounded-2xl p-6 sm:p-8">
             <p className="text-main text-lg">.text-main → Main text</p>
             <p className="text-muted text-lg">.text-muted → Muted / Secondary</p>
             <p className="text-accent text-lg">.text-accent → Accent color</p>
@@ -72,8 +66,8 @@ export default function ThemeShowcase() {
 
         {/* Section 3: Buttons & Accents */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">3. Buttons & Accents</h2>
-          <div className="flex flex-wrap gap-6 bg-surface-alt rounded-2xl p-8 shadow-surface justify-center">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">3. Buttons & Accents</h2>
+          <div className="flex flex-wrap gap-3 sm:gap-6 bg-surface-alt rounded-2xl p-6 sm:p-8 shadow-surface justify-center">
             <button className="accent px-6 py-3 rounded-full font-medium hover-lift">
               Primary Action
             </button>
@@ -91,8 +85,8 @@ export default function ThemeShowcase() {
 
         {/* Section 4: Borders & Shadows */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">4. Borders & Depth</h2>
-          <div className="grid gap-6 md:grid-cols-2">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">4. Borders & Depth</h2>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             <div className="border border-base rounded-2xl p-8 bg-surface hover-lift">
               <h3 className="text-lg font-medium mb-2">.border-base</h3>
               <p className="text-muted">Subtle neutral border.</p>
@@ -103,7 +97,7 @@ export default function ThemeShowcase() {
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 mt-6">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 mt-4 sm:mt-6">
             <div className="shadow-surface rounded-2xl p-8 bg-surface-alt hover-lift">
               <h3 className="text-lg font-medium mb-2">.shadow-surface</h3>
               <p className="text-muted">Soft natural elevation for surfaces.</p>
@@ -121,8 +115,8 @@ export default function ThemeShowcase() {
 
         {/* Section 5: Accent Gradients */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">5. Accent Gradients</h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">5. Accent Gradients</h2>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="preview-accent rounded-2xl p-8 hover-lift">
               <h3 className="text-lg font-medium mb-2">.preview-accent</h3>
               <p className="text-surface">Accent → Hover gradient.</p>
@@ -146,9 +140,9 @@ export default function ThemeShowcase() {
 
         {/* Section 6: Info / Variables */}
         <section className="fade-in">
-          <h2 className="text-2xl font-semibold mb-6">6. Theme Variables</h2>
-          <div className="bg-surface-alt rounded-2xl p-8 text-sm text-muted shadow-surface">
-            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">6. Theme Variables</h2>
+          <div className="bg-surface-alt rounded-2xl p-6 sm:p-8 text-sm text-muted shadow-surface">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               <div>Background: <span className="text-main">var(--color-bg)</span></div>
               <div>Surface: <span className="text-main">var(--color-surface)</span></div>
               <div>Accent: <span className="text-main">var(--color-accent)</span></div>

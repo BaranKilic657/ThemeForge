@@ -40,6 +40,9 @@ export default function Footer() {
               border: "1px solid var(--color-border)",
               minWidth: 240,
               outline: "none",
+              color: "var(--color-text)",
+              background: "var(--color-surface)",
+
             }}
           />
           <button className="btn-gradient hover-lift" style={{ borderRadius: 8, padding: "10px 18px" }}>
