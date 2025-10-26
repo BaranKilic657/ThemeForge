@@ -1,15 +1,9 @@
 "use client";
 import Image from "next/image";
-import ThemeSwitcher from "@/components/themeswitcher";
 
 export default function ThemeShowcase() {
   return (
     <div className="flex min-h-screen flex-col bg-surface font-sans text-main transition-colors overflow-x-hidden">
-      {/* Floating theme switcher */}
-      <div className="fixed right-4 sm:right-6 top-6 z-50">
-        <ThemeSwitcher />
-      </div>
-
       {/* Header */}
       <header className="bg-surface-alt shadow-surface py-12 sm:py-16 text-center fade-in px-4">
         <Image

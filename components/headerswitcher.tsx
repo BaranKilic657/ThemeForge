@@ -66,7 +66,7 @@ export default function HeaderSwitcher() {
   const currentLabel = headers.find((h) => h.name === header)?.label || header;
 
   return (
-    <div ref={ref} className="fixed bottom-20 right-4 sm:right-6 z-50">
+    <div ref={ref} className="fixed bottom-52 right-4 sm:right-6 z-50">
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen((o) => !o)}

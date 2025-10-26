@@ -81,7 +81,7 @@ export default function ThemeSwitcher() {
   const currentLabel = themes.find((t) => t.name === theme)?.label || theme;
 
   return (
-    <div ref={ref} className="fixed bottom-6 right-4 sm:right-6 z-50">
+    <div ref={ref} className="fixed bottom-36 right-4 sm:right-6 z-50">
       {/* Floating toggle button */}
       <button
         onClick={() => setOpen((o) => !o)}
