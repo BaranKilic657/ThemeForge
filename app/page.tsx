@@ -1,65 +1,165 @@
+"use client";
 import Image from "next/image";
+import ThemeSwitcher from "@/components/themeswitcher";
 
-export default function Home() {
+export default function ThemeShowcase() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex min-h-screen flex-col bg-surface font-sans text-main transition-colors">
+      {/* Floating theme switcher */}
+      <div className="fixed right-6 top-6 z-50">
+        <ThemeSwitcher />
+      </div>
+
+      {/* Header */}
+      <header className="bg-surface-alt shadow-surface py-16 text-center fade-in">
         <Image
-          className="dark:invert"
           src="/next.svg"
           alt="Next.js logo"
           width={100}
           height={20}
           priority
+          className="mx-auto mb-4 invert-[var(--invert-logo,0)]"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <h1 className="text-4xl font-semibold tracking-tight text-highlight mb-3">
+          Theme System Showcase
+        </h1>
+        <p className="text-lg text-muted max-w-xl mx-auto">
+          Explore how each color, layer, and effect behaves under different themes.
+          Click the 🎨 button to switch between themes.
+        </p>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex flex-col gap-20 py-20 px-8 sm:px-16 md:px-32 bg-surface-gradient transition-colors">
+        {/* Section 1: Base Surfaces */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">1. Surfaces & Layers</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl p-8 bg-surface shadow-surface hover-lift">
+              <h3 className="text-lg font-medium mb-2">Surface</h3>
+              <p className="text-muted text-sm">
+                .bg-surface — the primary layer behind most content.
+              </p>
+            </div>
+            <div className="rounded-2xl p-8 bg-surface-alt shadow-surface hover-lift">
+              <h3 className="text-lg font-medium mb-2">Surface Alt</h3>
+              <p className="text-muted text-sm">
+                .bg-surface-alt — a contrast layer for cards and side panels.
+              </p>
+            </div>
+            <div className="rounded-2xl p-8 bg-surface-gradient shadow-surface hover-lift">
+              <h3 className="text-lg font-medium mb-2">Surface Gradient</h3>
+              <p className="text-muted text-sm">
+                .bg-surface-gradient — subtle depth gradient from surface → alt.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Text Hierarchy */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">2. Text Colors</h2>
+          <div className="space-y-4 bg-surface-alt rounded-2xl p-8">
+            <p className="text-main text-lg">.text-main → Main text</p>
+            <p className="text-muted text-lg">.text-muted → Muted / Secondary</p>
+            <p className="text-accent text-lg">.text-accent → Accent color</p>
+            <p className="text-highlight text-lg font-semibold">
+              .text-highlight → Gradient highlight text
+            </p>
+            <p className="text-accent-hover">Hover over this text</p>
+          </div>
+        </section>
+
+        {/* Section 3: Buttons & Accents */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">3. Buttons & Accents</h2>
+          <div className="flex flex-wrap gap-6 bg-surface-alt rounded-2xl p-8 shadow-surface justify-center">
+            <button className="accent px-6 py-3 rounded-full font-medium hover-lift">
+              Primary Action
+            </button>
+            <button className="accent-outline px-6 py-3 rounded-full font-medium hover-lift">
+              Accent Outline
+            </button>
+            <button className="btn-gradient px-6 py-3 rounded-full font-medium hover-lift">
+              Gradient Accent
+            </button>
+            <button className="btn-gradient-secondary px-6 py-3 rounded-full font-medium hover-lift">
+              Gradient Secondary
+            </button>
+          </div>
+        </section>
+
+        {/* Section 4: Borders & Shadows */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">4. Borders & Depth</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="border border-base rounded-2xl p-8 bg-surface hover-lift">
+              <h3 className="text-lg font-medium mb-2">.border-base</h3>
+              <p className="text-muted">Subtle neutral border.</p>
+            </div>
+            <div className="border border-accent rounded-2xl p-8 bg-surface hover-lift">
+              <h3 className="text-lg font-medium mb-2">.border-accent</h3>
+              <p className="text-muted">Highlight border using accent color.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 mt-6">
+            <div className="shadow-surface rounded-2xl p-8 bg-surface-alt hover-lift">
+              <h3 className="text-lg font-medium mb-2">.shadow-surface</h3>
+              <p className="text-muted">Soft natural elevation for surfaces.</p>
+            </div>
+            <div className="shadow-accent rounded-2xl p-8 bg-surface-alt hover-lift">
+              <h3 className="text-lg font-medium mb-2">.shadow-accent</h3>
+              <p className="text-muted">Elevated accent-colored shadow glow.</p>
+            </div>
+            <div className="bg-surface-alt rounded-2xl p-8 shadow-accent-hover hover-lift transition-all">
+  <h3 className="text-lg font-medium mb-2">.shadow-accent-hover</h3>
+  <p className="text-muted text-sm">Reveals an accent glow on hover.</p>
+</div>
+          </div>
+        </section>
+
+        {/* Section 5: Accent Gradients */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">5. Accent Gradients</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="preview-accent rounded-2xl p-8 hover-lift">
+              <h3 className="text-lg font-medium mb-2">.preview-accent</h3>
+              <p className="text-surface">Accent → Hover gradient.</p>
+            </div>
+            <div className="preview-secondary rounded-2xl p-8 hover-lift">
+              <h3 className="text-lg font-medium mb-2">.preview-secondary</h3>
+              <p className="text-surface">Secondary → Accent gradient.</p>
+            </div>
+            <div className="preview-gradient rounded-2xl p-8 hover-lift">
+              <h3 className="text-lg font-medium mb-2">.preview-gradient</h3>
+              <p className="text-main">Background → Surface Alt gradient.</p>
+            </div>
+            <div className="bg-gradient-accent rounded-2xl p-8 text-surface hover-lift">
+              .bg-gradient-accent
+            </div>
+            <div className="bg-gradient-secondary rounded-2xl p-8 text-surface hover-lift">
+              .bg-gradient-secondary
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: Info / Variables */}
+        <section className="fade-in">
+          <h2 className="text-2xl font-semibold mb-6">6. Theme Variables</h2>
+          <div className="bg-surface-alt rounded-2xl p-8 text-sm text-muted shadow-surface">
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+              <div>Background: <span className="text-main">var(--color-bg)</span></div>
+              <div>Surface: <span className="text-main">var(--color-surface)</span></div>
+              <div>Accent: <span className="text-main">var(--color-accent)</span></div>
+              <div>Text: <span className="text-main">var(--color-text)</span></div>
+              <div>Border: <span className="text-main">var(--color-border)</span></div>
+              <div>Transition: <span className="text-main">var(--transition-speed)</span></div>
+            </div>
+          </div>
+        </section>
       </main>
+
     </div>
   );
 }

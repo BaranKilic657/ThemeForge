@@ -1,6 +1,9 @@
 {
-  "name": "react_templates",
+  "name": "themeforge",
   "version": "0.1.0",
+  "description": "A dynamic React/Next.js design system playground for testing themes, headers, footers, and layouts in real-time",
+  "keywords": ["nextjs", "react", "typescript", "design-system", "themes", "components", "playground"],
+  "author": "Your Name",
   "private": true,
   "scripts": {
     "dev": "next dev",

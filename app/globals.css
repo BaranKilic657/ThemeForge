@@ -1,26 +1,1332 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --transition-speed: 0.3s;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--gradient-bg), var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+.bg-surface-alt {
+  background-color: var(--color-surface-alt);
+}
+.bg-surface-gradient {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-surface) 90%, var(--color-accent) 10%) 0%,
+    color-mix(in srgb, var(--color-surface-alt) 85%, var(--color-accent-hover) 15%) 100%
+  );
+}
+
+/* Text */
+.text-main {
+  color: var(--color-text);
+}
+.text-muted {
+  color: var(--color-text-muted);
+}
+.text-accent {
+  color: var(--color-accent);
+}
+.text-accent-hover {
+  color: var(--color-accent);
+  transition: color var(--transition-speed) ease;
+}
+
+.text-accent-hover:hover {
+  color: color-mix(in srgb, var(--color-accent-hover) 80%, var(--color-text) 20%);
+}
+/* Borders */
+.border-base {
+  border-color: var(--color-border);
+}
+.border-accent {
+  border-color: var(--color-accent);
+}
+
+/* Accents & Buttons */
+.accent {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+  transition: background var(--transition-speed) ease,
+    transform var(--transition-speed) ease;
+}
+.accent:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+.accent-outline {
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+.accent-outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+/* Subtle gradients */
+.bg-gradient-accent {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-hover) 100%
+  );
+  color: var(--color-surface);
+}
+.bg-gradient-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    var(--color-accent) 100%
+  );
+  color: var(--color-surface);
+}
+
+/* Shadows & depth */
+.shadow-surface {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+/* Always-on accent glow */
+.shadow-accent {
+  box-shadow:
+    0 4px 20px var(--color-accent-hover);
+  transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+
+/* Reverse variant: neutral at rest, glow only on hover */
+.shadow-accent-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.shadow-accent-hover.hover-lift:hover {
+  box-shadow:
+    var(--lift-shadow),                 
+    0 6px 24px var(--color-accent-hover),
+    0 0 10px var(--color-accent);
+  transform: translateY(-4px);
+}
+
+
+
+/* Hover lift for cards or buttons */
+.hover-lift {
+  --lift-shadow: 0 6px 20px rgba(0,0,0,0.08); /* neutral elevation */
+  transition:
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lift-shadow);
+}
+
+/* Gradients and outlines for previews */
+.preview-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--color-bg) 0%,
+    var(--color-surface-alt) 100%
+  );
+}
+.preview-accent {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    var(--color-accent-hover) 100%
+  );
+}
+.preview-secondary {
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary) 0%,
+    var(--color-accent) 100%
+  );
+}
+
+/* Text background accent for emphasis */
+.text-highlight {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-hover) 0%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Simple fade and scale transitions for components */
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.45s var(--transition-speed, 0.25s) ease forwards;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pop-in {
+  animation: popIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.03);
+    box-shadow: 0 0 12px 0 color-mix(in srgb, var(--color-accent-hover) 50%, transparent);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.fade-left {
+  animation: fadeLeft 0.45s ease forwards;
+}
+.fade-right {
+  animation: fadeRight 0.45s ease forwards;
+}
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.pulse-accent {
+  animation: pulseAccent 2s ease-in-out infinite;
+}
+@keyframes pulseAccent {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-accent-hover) 10%, transparent);
+  }
+}
+
+
+
+.btn-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-hover) 100%
+  );
+  color: var(--color-surface);
+  border: none;
+  transition:
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease,
+    opacity var(--transition-speed) ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+    0 0 10px var(--color-accent-hover);
+}
+
+.btn-gradient-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    var(--color-accent) 100%
+  );
+  color: var(--color-surface);
+  border: none;
+  transition:
+    transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease,
+    opacity var(--transition-speed) ease;
+}
+
+.btn-gradient-secondary:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+    0 0 10px var(--color-accent-hover);
+}
+
+
+
+
+
+/***************************************
+  Modern Theme
+  - Timeless, minimal, “Apple-esque” 
+  - suits most products or portfolios.
+****************************************/
+
+[data-theme='modern-light'] {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2f3f5;
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-secondary: #9333ea;
+  --color-border: #e5e7eb;
+  --gradient-bg: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+[data-theme='modern-dark'] {
+  --color-bg: #0f1115;
+  --color-surface: #181a1f;
+  --color-surface-alt: #1f2228;
+  --color-text: #f3f4f6;
+  --color-text-muted: #9ca3af;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+  --color-secondary: #a855f7;
+  --color-border: #2e3239;
+  --gradient-bg: linear-gradient(180deg, #0d0e12 0%, #1a1d22 100%);
+}
+
+
+/***************************************
+  Pastel Theme
+  - Gentle, approachable, calming
+  - for lifestyle, creative, or wellness products.
+****************************************/
+
+[data-theme='pastel-light'] {
+  --color-bg: #fefefe;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9f6fb;
+  --color-text: #222222;
+  --color-text-muted: #6d6d6d;
+  --color-accent: #ec4899; /* pink */
+  --color-accent-hover: #db2777;
+  --color-secondary: #8b5cf6; /* lilac */
+  --color-border: #e8e8ec;
+  --gradient-bg: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+}
+
+[data-theme='pastel-dark'] {
+  --color-bg: #121013;
+  --color-surface: #1a171c;
+  --color-surface-alt: #221e26;
+  --color-text: #f5f3f7;
+  --color-text-muted: #b5b2ba;
+  --color-accent: #f472b6;
+  --color-accent-hover: #f9a8d4;
+  --color-secondary: #c084fc;
+  --color-border: #2d2832;
+  --gradient-bg: linear-gradient(180deg, #141217 0%, #1d1921 100%);
+}
+
+
+/***************************************
+  Tech Theme
+  - Bold contrast, clean edges
+  - great for tech, AI, developer or premium branding.
+****************************************/
+
+[data-theme='tech-light'] {
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-alt: #eef2f7;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-accent: #0ea5e9; /* cyan */
+  --color-accent-hover: #0284c7;
+  --color-secondary: #14b8a6; /* teal */
+  --color-border: #d1d5db;
+  --gradient-bg: linear-gradient(180deg, #f9fafb 0%, #eef2f7 100%);
+}
+
+[data-theme='tech-dark'] {
+  --color-bg: #0b0f14;
+  --color-surface: #10151c;
+  --color-surface-alt: #141b23;
+  --color-text: #e5e7eb;
+  --color-text-muted: #9ca3af;
+  --color-accent: #22d3ee;
+  --color-accent-hover: #67e8f9;
+  --color-secondary: #2dd4bf;
+  --color-border: #1e293b;
+  --gradient-bg: linear-gradient(180deg, #0a0d12 0%, #111821 100%);
+}
+
+
+/***************************************
+  Organic Theme
+  - Warm neutrals + greens
+  - ideal for eco-friendly, health, or outdoor brands.
+****************************************/
+
+[data-theme='organic-light'] {
+  --color-bg: #fafaf9;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f4f3;
+  --color-text: #1a1c18;
+  --color-text-muted: #66736f;
+  --color-accent: #22c55e; /* green */
+  --color-accent-hover: #16a34a;
+  --color-secondary: #84cc16; /* lime */
+  --color-border: #e0e2de;
+  --gradient-bg: linear-gradient(180deg, #fafaf9 0%, #f1f5f3 100%);
+}
+
+[data-theme='organic-dark'] {
+  --color-bg: #0f1210;
+  --color-surface: #171b18;
+  --color-surface-alt: #1f2421;
+  --color-text: #f0fdf4;
+  --color-text-muted: #94a3b8;
+  --color-accent: #4ade80;
+  --color-accent-hover: #86efac;
+  --color-secondary: #bef264;
+  --color-border: #2a2e2b;
+  --gradient-bg: linear-gradient(180deg, #0d100e 0%, #191d1a 100%);
+}
+
+
+/***************************************
+  Editorial Theme
+  - Stylish, print-inspired
+  - heavy use of typography and strong visual rhythm.
+****************************************/
+
+[data-theme='editorial-light'] {
+  --color-bg: #fcfcfc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5f5f5;
+  --color-text: #1a1a1a;
+  --color-text-muted: #737373;
+  --color-accent: #e11d48; /* red accent */
+  --color-accent-hover: #be123c;
+  --color-secondary: #f97316; /* orange */
+  --color-border: #e5e5e5;
+  --gradient-bg: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+[data-theme='editorial-dark'] {
+  --color-bg: #111010;
+  --color-surface: #181818;
+  --color-surface-alt: #202020;
+  --color-text: #fafafa;
+  --color-text-muted: #a3a3a3;
+  --color-accent: #fb7185;
+  --color-accent-hover: #fca5a5;
+  --color-secondary: #fb923c;
+  --color-border: #262626;
+  --gradient-bg: linear-gradient(180deg, #121212 0%, #1c1c1c 100%);
+}
+
+
+
+/***************************************
+  Frosted Theme
+  - Soft whites and cold blues
+  - ultra-clean and airy.
+****************************************/
+
+
+[data-theme='frosted-light'] {
+  --color-bg: #f9fafc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f5f8;
+  --color-text: #1a1c1f;
+  --color-text-muted: #6b7280;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-secondary: #38bdf8;
+  --color-border: #e2e8f0;
+  --gradient-bg: linear-gradient(180deg, #f9fafc 0%, #f1f5f9 100%);
+}
+
+[data-theme='frosted-dark'] {
+  --color-bg: #0f1115;
+  --color-surface: #171a1f;
+  --color-surface-alt: #1c1f26;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-secondary: #38bdf8;
+  --color-border: #2a2f37;
+  --gradient-bg: linear-gradient(180deg, #0f1115 0%, #171a1f 100%);
+}
+
+
+
+/***************************************
+  Vibrant Theme
+  - Bright, energetic colors
+  - for brands that want to stand out.
+****************************************/
+
+[data-theme='vibrant-light'] {
+  --color-bg: #fffdfc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fff7f2;
+  --color-text: #1a1a1a;
+  --color-text-muted: #737373;
+  --color-accent: #f97316; /* orange */
+  --color-accent-hover: #ea580c;
+  --color-secondary: #06b6d4; /* cyan */
+  --color-border: #f3f3f3;
+  --gradient-bg: linear-gradient(180deg, #fffdfc 0%, #fff8f1 100%);
+}
+
+[data-theme='vibrant-dark'] {
+  --color-bg: #141010;
+  --color-surface: #1a1515;
+  --color-surface-alt: #211b1a;
+  --color-text: #f5f5f5;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #fb923c;
+  --color-accent-hover: #fdba74;
+  --color-secondary: #67e8f9;
+  --color-border: #272222;
+  --gradient-bg: linear-gradient(180deg, #141010 0%, #1a1515 100%);
+}
+
+
+/***************************************
+  Cyber Theme
+  - Neon accents on dark or light backgrounds
+  - for futuristic, gaming, or tech brands.
+****************************************/
+
+[data-theme='cyber-light'] {
+  --color-bg: #f7f8fb;
+  --color-surface: #ffffff;
+  --color-surface-alt: #eef0f5;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-secondary: #7c3aed;
+  --color-border: #e2e8f0;
+  --gradient-bg: linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+}
+
+[data-theme='cyber-dark'] {
+  --color-bg: #090a0f;
+  --color-surface: #0f1018;
+  --color-surface-alt: #161823;
+  --color-text: #e5e7eb;
+  --color-text-muted: #9ca3af;
+  --color-accent: #818cf8;
+  --color-accent-hover: #a5b4fc;
+  --color-secondary: #c084fc;
+  --color-border: #1e1f2b;
+  --gradient-bg: linear-gradient(180deg, #090a0f 0%, #151621 100%);
+}
+
+
+/***************************************
+  Sand Theme
+  - Earthy tones and warm neutrals
+  - for natural, artisanal, or handmade brands.
+****************************************/
+
+[data-theme='sand-light'] {
+  --color-bg: #fdfcf9;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8f6f2;
+  --color-text: #262626;
+  --color-text-muted: #737373;
+  --color-accent: #a16207; /* golden brown */
+  --color-accent-hover: #854d0e;
+  --color-secondary: #ca8a04;
+  --color-border: #e5e2db;
+  --gradient-bg: linear-gradient(180deg, #fdfcf9 0%, #f7f5f1 100%);
+}
+
+[data-theme='sand-dark'] {
+  --color-bg: #13110f;
+  --color-surface: #1b1815;
+  --color-surface-alt: #211e1b;
+  --color-text: #faf8f5;
+  --color-text-muted: #a8a29e;
+  --color-accent: #eab308;
+  --color-accent-hover: #facc15;
+  --color-secondary: #fcd34d;
+  --color-border: #2e2b27;
+  --gradient-bg: linear-gradient(180deg, #13110f 0%, #1c1916 100%);
+}
+
+
+
+/***************************************
+  Graphite Theme
+  - Monochrome palette with subtle contrasts
+  - for sleek, professional, or corporate branding.
+****************************************/
+
+[data-theme='graphite-light'] {
+  --color-bg: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f3f3;
+  --color-text: #171717;
+  --color-text-muted: #6b6b6b;
+  --color-accent: #4b5563; /* graphite gray */
+  --color-accent-hover: #374151;
+  --color-secondary: #9ca3af;
+  --color-border: #e5e5e5;
+  --gradient-bg: linear-gradient(180deg, #f8f8f8 0%, #f2f2f2 100%);
+}
+
+[data-theme='graphite-dark'] {
+  --color-bg: #0d0d0d;
+  --color-surface: #151515;
+  --color-surface-alt: #1b1b1b;
+  --color-text: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #9ca3af;
+  --color-accent-hover: #d4d4d8;
+  --color-secondary: #71717a;
+  --color-border: #2d2d2d;
+  --gradient-bg: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+}
+
+
+/***************************************
+  Aurora Theme
+  - Cool blues and soft pastels
+  - for creative, dreamy, or imaginative brands.
+****************************************/
+
+[data-theme='aurora-light'] {
+  --color-bg: #f7faff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #edf2fa;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1e40af;
+  --color-secondary: #06b6d4;
+  --color-border: #e2e8f0;
+  --gradient-bg: linear-gradient(180deg, #f9fbff 0%, #eef4ff 100%);
+}
+
+[data-theme='aurora-dark'] {
+  --color-bg: #060b12;
+  --color-surface: #0b1018;
+  --color-surface-alt: #121a24;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-secondary: #67e8f9;
+  --color-border: #1e293b;
+  --gradient-bg: linear-gradient(180deg, #060b12 0%, #0e1723 100%);
+}
+
+
+/***************************************
+  Terracotta Theme
+  - Warm oranges and earthy browns
+  - for rustic, artisanal, or heritage brands.
+****************************************/
+
+[data-theme='terracotta-light'] {
+  --color-bg: #fdfaf8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fbf7f5;
+  --color-text: #272522;
+  --color-text-muted: #726c67;
+  --color-accent: #c2410c; /* terracotta orange */
+  --color-accent-hover: #9a3412;
+  --color-secondary: #78350f; /* earthy brown */
+  --color-border: #e7e2dd;
+  --gradient-bg: linear-gradient(180deg, #fdfaf8 0%, #faf5f0 100%);
+}
+
+[data-theme='terracotta-dark'] {
+  --color-bg: #12100e;
+  --color-surface: #1a1815;
+  --color-surface-alt: #201d1a;
+  --color-text: #f5f3f0;
+  --color-text-muted: #a8a29e;
+  --color-accent: #fb923c;
+  --color-accent-hover: #fdba74;
+  --color-secondary: #f97316;
+  --color-border: #2e2b27;
+  --gradient-bg: linear-gradient(180deg, #12100e 0%, #1b1815 100%);
+}
+
+
+
+/***************************************
+  Neopop Theme
+  - Bright, playful colors with high contrast
+  - for fun, youthful, or entertainment brands.
+****************************************/
+
+[data-theme='neopop-light'] {
+  --color-bg: #ffffff;
+  --color-surface: #fefefe;
+  --color-surface-alt: #fafafa;
+  --color-text: #18181b;
+  --color-text-muted: #6b7280;
+  --color-accent: #e11d48; /* punchy pink */
+  --color-accent-hover: #be123c;
+  --color-secondary: #06b6d4; /* cyan pop */
+  --color-border: #e5e7eb;
+  --gradient-bg: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+[data-theme='neopop-dark'] {
+  --color-bg: #0f0f12;
+  --color-surface: #151517;
+  --color-surface-alt: #1c1c1e;
+  --color-text: #fafafa;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #f43f5e;
+  --color-accent-hover: #fb7185;
+  --color-secondary: #22d3ee;
+  --color-border: #262626;
+  --gradient-bg: linear-gradient(180deg, #0f0f12 0%, #1a1a1c 100%);
+}
+
+
+
+/***************************************
+  Noir Theme
+  - Sophisticated grayscale palette
+  - for luxury, fashion, or high-end brands.
+****************************************/
+
+[data-theme='noir-light'] {
+  --color-bg: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f4f5;
+  --color-text: #1f1f1f;
+  --color-text-muted: #66666a;
+  --color-accent: #64748b; /* steel gray-blue */
+  --color-accent-hover: #475569;
+  --color-secondary: #a3a3a3;
+  --color-border: #e4e4e7;
+  --gradient-bg: linear-gradient(180deg, #f8f8f9 0%, #f3f4f5 100%);
+}
+
+[data-theme='noir-dark'] {
+  --color-bg: #101011;
+  --color-surface: #18181b;
+  --color-surface-alt: #1f1f23;
+  --color-text: #f4f4f5;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #94a3b8;
+  --color-accent-hover: #cbd5e1;
+  --color-secondary: #71717a;
+  --color-border: #27272a;
+  --gradient-bg: linear-gradient(180deg, #101011 0%, #18181b 100%);
+}
+
+
+
+/***************************************
+  Solar Theme
+  - Warm yellows and oranges
+  - for energetic, optimistic, or creative brands.
+****************************************/
+
+[data-theme='solar-light'] {
+  --color-bg: #fffdf8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fefaf2;
+  --color-text: #232220;
+  --color-text-muted: #6c6760;
+  --color-accent: #facc15; /* sunflower yellow */
+  --color-accent-hover: #eab308;
+  --color-secondary: #f97316; /* orange warmth */
+  --color-border: #ede8df;
+  --gradient-bg: linear-gradient(180deg, #fffdf8 0%, #fdf7e8 100%);
+}
+
+[data-theme='solar-dark'] {
+  --color-bg: #0f0e0a;
+  --color-surface: #16140f;
+  --color-surface-alt: #1c1a14;
+  --color-text: #fefce8;
+  --color-text-muted: #d6d3d1;
+  --color-accent: #fde047;
+  --color-accent-hover: #facc15;
+  --color-secondary: #fb923c;
+  --color-border: #2b281e;
+  --gradient-bg: linear-gradient(180deg, #0f0e0a 0%, #181610 100%);
+}
+
+
+/***************************************
+  Cosmic Theme
+  - Deep blues and purples
+  - for imaginative, futuristic, or space-themed brands.
+****************************************/
+
+[data-theme='cosmic-light'] {
+  --color-bg: #f8f9ff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0f2fa;
+  --color-text: #12122a;
+  --color-text-muted: #6b6b80;
+  --color-accent: #6366f1; /* indigo */
+  --color-accent-hover: #7c3aed;
+  --color-secondary: #3b82f6; /* blue */
+  --color-border: #e0e4f0;
+  --gradient-bg: linear-gradient(180deg, #f9f9ff 0%, #f1f3ff 100%);
+}
+
+[data-theme='cosmic-dark'] {
+  --color-bg: #0a0b17;
+  --color-surface: #111225;
+  --color-surface-alt: #181932;
+  --color-text: #e5e7ff;
+  --color-text-muted: #a5a8c7;
+  --color-accent: #818cf8;
+  --color-accent-hover: #a78bfa;
+  --color-secondary: #60a5fa;
+  --color-border: #1e203c;
+  --gradient-bg: linear-gradient(180deg, #0a0b17 0%, #171830 100%);
+}
+
+
+/***************************************
+  Aqua Theme
+  - Fresh blues and greens
+  - for clean, modern, or water-related brands.
+****************************************/
+
+[data-theme='aqua-light'] {
+  --color-bg: #f7fdfc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #effaf9;
+  --color-text: #0b1211;
+  --color-text-muted: #647470;
+  --color-accent: #06b6d4; /* cyan */
+  --color-accent-hover: #0e7490;
+  --color-secondary: #10b981; /* mint */
+  --color-border: #d6ebe8;
+  --gradient-bg: linear-gradient(180deg, #f7fdfc 0%, #effaf9 100%);
+}
+
+[data-theme='aqua-dark'] {
+  --color-bg: #081211;
+  --color-surface: #0f1a19;
+  --color-surface-alt: #162322;
+  --color-text: #e0f2f1;
+  --color-text-muted: #9caea9;
+  --color-accent: #22d3ee;
+  --color-accent-hover: #67e8f9;
+  --color-secondary: #34d399;
+  --color-border: #1c2d2a;
+  --gradient-bg: linear-gradient(180deg, #081211 0%, #142320 100%);
+}
+
+
+/***************************************
+  Velvet Theme
+  - Rich purples and soft neutrals
+  - for luxurious, elegant, or creative brands.
+****************************************/
+
+[data-theme='velvet-light'] {
+  --color-bg: #f9f8fb;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f1f8;
+  --color-text: #1c1a23;
+  --color-text-muted: #6e6a78;
+  --color-accent: #7e22ce; /* royal violet */
+  --color-accent-hover: #6d28d9;
+  --color-secondary: #9333ea;
+  --color-border: #e3dff0;
+  --gradient-bg: linear-gradient(180deg, #faf9fc 0%, #f3f0f9 100%);
+}
+
+[data-theme='velvet-dark'] {
+  --color-bg: #0e0a12;
+  --color-surface: #16121d;
+  --color-surface-alt: #1d1824;
+  --color-text: #f3f1f7;
+  --color-text-muted: #b8b4c3;
+  --color-accent: #a855f7;
+  --color-accent-hover: #c084fc;
+  --color-secondary: #d8b4fe;
+  --color-border: #231c2c;
+  --gradient-bg: linear-gradient(180deg, #0e0a12 0%, #191425 100%);
+}
+
+
+
+/***************************************
+  Dawn Theme
+  - Warm, light colors with gentle contrasts
+  - for welcoming, friendly, or lifestyle brands.
+****************************************/
+
+[data-theme='dawn-light'] {
+  --color-bg: #fffdfa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fef9f5;
+  --color-text: #2b2521;
+  --color-text-muted: #786e69;
+  --color-accent: #f59e0b; /* amber */
+  --color-accent-hover: #d97706;
+  --color-secondary: #e879f9; /* light lavender accent */
+  --color-border: #eee6dc;
+  --gradient-bg: linear-gradient(180deg, #fffdfa 0%, #fef7f1 100%);
+}
+
+[data-theme='dawn-dark'] {
+  --color-bg: #12100e;
+  --color-surface: #1a1715;
+  --color-surface-alt: #221e1b;
+  --color-text: #faf5ef;
+  --color-text-muted: #b9afa7;
+  --color-accent: #fbbf24;
+  --color-accent-hover: #facc15;
+  --color-secondary: #d946ef;
+  --color-border: #2a2623;
+  --gradient-bg: linear-gradient(180deg, #12100e 0%, #1b1815 100%);
+}
+
+
+
+/***************************************
+  Prism Theme
+  - Light blues and violets
+  - for creative, tech, or modern brands.
+****************************************/
+
+[data-theme='prism-light'] {
+  --color-bg: #f8fbff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f1f6ff;
+  --color-text: #101826;
+  --color-text-muted: #5f6470;
+  --color-accent: #8b5cf6; /* violet */
+  --color-accent-hover: #7c3aed;
+  --color-secondary: #06b6d4; /* cyan */
+  --color-border: #dbe2f0;
+  --gradient-bg: linear-gradient(180deg, #f8fbff 0%, #f2f6ff 100%);
+}
+
+[data-theme='prism-dark'] {
+  --color-bg: #070912;
+  --color-surface: #0e1020;
+  --color-surface-alt: #15172a;
+  --color-text: #e0e7ff;
+  --color-text-muted: #9da7c2;
+  --color-accent: #a78bfa;
+  --color-accent-hover: #c4b5fd;
+  --color-secondary: #22d3ee;
+  --color-border: #1e2335;
+  --gradient-bg: linear-gradient(180deg, #070912 0%, #15172a 100%);
+}
+
+
+/***************************************
+  Cobalt Theme
+  - Deep blues and crisp whites
+  - for professional, tech, or corporate brands.
+****************************************/
+
+[data-theme='cobalt-light']{
+  --color-bg:#f7f9fe;
+  --color-surface:#ffffff;
+  --color-surface-alt:#eef3ff;
+  --color-text:#0f172a;
+  --color-text-muted:#667085;
+  --color-accent:#2563eb;          /* cobalt */
+  --color-accent-hover:#1e40af;
+  --color-secondary:#3b82f6;       /* mid blue */
+  --color-border:#d9e2f1;
+  --gradient-bg:linear-gradient(180deg,#f7f9fe 0%,#eef3ff 100%);
+}
+
+[data-theme='cobalt-dark']{
+  --color-bg:#0a1020;
+  --color-surface:#111836;
+  --color-surface-alt:#172048;
+  --color-text:#e6edff;
+  --color-text-muted:#9fb0d9;
+  --color-accent:#60a5fa;
+  --color-accent-hover:#93c5fd;
+  --color-secondary:#818cf8;
+  --color-border:#1e2b57;
+  --gradient-bg:linear-gradient(180deg,#0a1020 0%,#141f45 100%);
+}
+
+
+/***************************************
+  Patina Theme
+  - Soft greens and natural tones
+  - for eco-friendly, health, or outdoor brands.
+****************************************/
+
+[data-theme='patina-light']{
+  --color-bg:#fafcfb;
+  --color-surface:#ffffff;
+  --color-surface-alt:#f0f7f5;
+  --color-text:#10201d;
+  --color-text-muted:#5f6f6b;
+  --color-accent:#10b981;          /* verdigris/mint */
+  --color-accent-hover:#0e9f6e;
+  --color-secondary:#b45309;       /* brass */
+  --color-border:#d8e7e3;
+  --gradient-bg:linear-gradient(180deg,#fafcfb 0%,#f2f8f6 100%);
+}
+
+[data-theme='patina-dark']{
+  --color-bg:#0b1311;
+  --color-surface:#111c19;
+  --color-surface-alt:#172421;
+  --color-text:#e6fffb;
+  --color-text-muted:#9fc7bf;
+  --color-accent:#34d399;
+  --color-accent-hover:#6ee7b7;
+  --color-secondary:#f59e0b;       /* warm metal glow */
+  --color-border:#1a2a26;
+  --gradient-bg:linear-gradient(180deg,#0b1311 0%,#14221e 100%);
+}
+
+
+/***************************************
+  Terminal Theme
+  - High contrast greens on light and dark backgrounds
+  - for developer, coding, or tech brands.
+****************************************/
+
+[data-theme='terminal-light']{
+  --color-bg:#f6f7f6;
+  --color-surface:#ffffff;
+  --color-surface-alt:#eef1ee;
+  --color-text:#111412;
+  --color-text-muted:#5f6a63;
+  --color-accent:#16a34a;          /* neon green, tamed in light */
+  --color-accent-hover:#15803d;
+  --color-secondary:#0ea5e9;       /* cyan for links */
+  --color-border:#d9ded8;
+  --gradient-bg:linear-gradient(180deg,#f6f7f6 0%,#edf1ee 100%);
+}
+
+[data-theme='terminal-dark']{
+  --color-bg:#0b0f0c;
+  --color-surface:#111612;
+  --color-surface-alt:#151b17;
+  --color-text:#e6f5eb;
+  --color-text-muted:#9cc7a9;
+  --color-accent:#22c55e;          /* neon */
+  --color-accent-hover:#86efac;
+  --color-secondary:#22d3ee;       /* cyber cyan */
+  --color-border:#1c241e;
+  --gradient-bg:linear-gradient(180deg,#0b0f0c 0%,#121812 100%);
+}
+
+
+
+/***************************************
+  Sakura Theme
+  - Soft pinks and gentle greens
+  - for delicate, feminine, or beauty brands.
+****************************************/
+
+[data-theme='sakura-light']{
+  --color-bg:#fffdfd;
+  --color-surface:#ffffff;
+  --color-surface-alt:#fdf6f8;
+  --color-text:#2a2626;
+  --color-text-muted:#7a7072;
+  --color-accent:#ef849f;          /* sakura */
+  --color-accent-hover:#e11d48;
+  --color-secondary:#7fb5a3;       /* sage */
+  --color-border:#eadfe2;
+  --gradient-bg:linear-gradient(180deg,#fffdfd 0%,#fcf3f6 100%);
+}
+
+[data-theme='sakura-dark']{
+  --color-bg:#131013;
+  --color-surface:#191518;
+  --color-surface-alt:#201b1f;
+  --color-text:#fff1f5;
+  --color-text-muted:#d6c2c8;
+  --color-accent:#fda4af;
+  --color-accent-hover:#fecdd3;
+  --color-secondary:#a7d3c5;
+  --color-border:#2a2428;
+  --gradient-bg:linear-gradient(180deg,#131013 0%,#1b171a 100%);
+}
+
+/***************************************
+  Magma Theme
+  - Warm reds and pinks
+  - for bold, passionate, or energetic brands.
+****************************************/
+
+[data-theme='magma-light']{
+  --color-bg:#fff8f8;
+  --color-surface:#ffffff;
+  --color-surface-alt:#fff1f2;
+  --color-text:#201013;
+  --color-text-muted:#6f5c61;
+  --color-accent:#e11d48;          /* infrared rose */
+  --color-accent-hover:#be123c;
+  --color-secondary:#db2777;       /* hot magenta */
+  --color-border:#f0d9dd;
+  --gradient-bg:linear-gradient(180deg,#fff8f8 0%,#ffecef 100%);
+}
+
+[data-theme='magma-dark']{
+  --color-bg:#100b0d;
+  --color-surface:#171015;
+  --color-surface-alt:#1f161c;
+  --color-text:#ffe8ec;
+  --color-text-muted:#f5b9c6;
+  --color-accent:#fb7185;
+  --color-accent-hover:#fecdd3;
+  --color-secondary:#f472b6;
+  --color-border:#2a1b22;
+  --gradient-bg:linear-gradient(180deg,#100b0d 0%,#1b1218 100%);
+}
+
+
+
+/***************************************
+  Graphpaper Theme
+  - Clean grays and whites
+  - for minimalist, design-focused, or architectural brands.
+****************************************/
+
+[data-theme='graphpaper-light']{
+  --color-bg:#fbfbfb;
+  --color-surface:#ffffff;
+  --color-surface-alt:#f3f3f3;
+  --color-text:#1a1a1a;
+  --color-text-muted:#737373;
+  --color-accent:#111827;        /* black ink */
+  --color-accent-hover:#374151;
+  --color-secondary:#9ca3af;     /* pencil gray */
+  --color-border:#e5e5e5;
+  --gradient-bg:linear-gradient(180deg,#fbfbfb 0%,#f4f4f4 100%);
+}
+
+[data-theme='graphpaper-dark']{
+  --color-bg:#0d0d0d;
+  --color-surface:#141414;
+  --color-surface-alt:#1b1b1b;
+  --color-text:#f5f5f5;
+  --color-text-muted:#a3a3a3;
+  --color-accent:#e5e5e5;
+  --color-accent-hover:#ffffff;
+  --color-secondary:#71717a;
+  --color-border:#2e2e2e;
+  --gradient-bg:linear-gradient(180deg,#0d0d0d 0%,#1a1a1a 100%);
+}
+
+
+/***************************************
+  Miami Theme
+  - Bright pinks and oranges
+  - for vibrant, trendy, or nightlife brands.
+****************************************/
+
+[data-theme='miami-light']{
+  --color-bg:#fffdfb;
+  --color-surface:#ffffff;
+  --color-surface-alt:#fff5f8;
+  --color-text:#1f0e1d;
+  --color-text-muted:#7a5b6f;
+  --color-accent:#ec4899;        /* hot pink */
+  --color-accent-hover:#db2777;
+  --color-secondary:#f97316;     /* sunset orange */
+  --color-border:#f5d6e0;
+  --gradient-bg:linear-gradient(180deg,#fffdfb 0%,#fff5f8 100%);
+}
+
+[data-theme='miami-dark']{
+  --color-bg:#120f16;
+  --color-surface:#1b1620;
+  --color-surface-alt:#231b27;
+  --color-text:#fdf2f8;
+  --color-text-muted:#f9a8d4;
+  --color-accent:#fb7185;
+  --color-accent-hover:#fca5a5;
+  --color-secondary:#fb923c;
+  --color-border:#2a202d;
+  --gradient-bg:linear-gradient(180deg,#120f16 0%,#1d1723 100%);
+}
+
+
+/***************************************
+  Hologram Theme
+  - Iridescent violets and shifting cyans
+  - for futuristic, tech, or creative brands.
+****************************************/
+
+
+[data-theme='hologram-light']{
+  --color-bg:#f9f9fa;
+  --color-surface:#ffffff;
+  --color-surface-alt:#f3f3f4;
+  --color-text:#1b1b1d;
+  --color-text-muted:#68686e;
+  --color-accent:#a855f7;        /* iridescent violet */
+  --color-accent-hover:#6366f1;
+  --color-secondary:#06b6d4;     /* shifting cyan */
+  --color-border:#e4e4e7;
+  --gradient-bg:linear-gradient(180deg,#f9f9fa 0%,#f3f3f4 100%);
+}
+
+[data-theme='hologram-dark']{
+  --color-bg:#0f0f11;
+  --color-surface:#161618;
+  --color-surface-alt:#1d1d1f;
+  --color-text:#f4f4f5;
+  --color-text-muted:#a1a1aa;
+  --color-accent:#c084fc;
+  --color-accent-hover:#a5b4fc;
+  --color-secondary:#22d3ee;
+  --color-border:#27272a;
+  --gradient-bg:linear-gradient(180deg,#0f0f11 0%,#18181b 100%);
+}
+
+
+
+/***************************************
+  Cafe Theme
+  - Warm browns and creamy neutrals
+  - for cozy, inviting, or lifestyle brands.
+****************************************/
+
+[data-theme='cafe-light']{
+  --color-bg:#fefcfb;
+  --color-surface:#ffffff;
+  --color-surface-alt:#faf5f3;
+  --color-text:#2a1f1b;
+  --color-text-muted:#7b6b62;
+  --color-accent:#b45309;        /* roast brown */
+  --color-accent-hover:#92400e;
+  --color-secondary:#a16207;     /* caramel */
+  --color-border:#eadfd8;
+  --gradient-bg:linear-gradient(180deg,#fefcfb 0%,#faf5f3 100%);
+}
+
+[data-theme='cafe-dark']{
+  --color-bg:#110d0b;
+  --color-surface:#191411;
+  --color-surface-alt:#201a16;
+  --color-text:#fefcfb;
+  --color-text-muted:#c9b8af;
+  --color-accent:#f59e0b;
+  --color-accent-hover:#fbbf24;
+  --color-secondary:#fcd34d;
+  --color-border:#2a231e;
+  --gradient-bg:linear-gradient(180deg,#110d0b 0%,#1a1512 100%);
+}
+
+
+/***************************************
+  Solarink Theme
+  - Inspired by Solarized color scheme
+  - for balanced, readable, and visually appealing designs.
+****************************************/
+
+[data-theme='solarink-light']{
+  --color-bg:#fdf6e3;
+  --color-surface:#ffffff;
+  --color-surface-alt:#f7f2dc;
+  --color-text:#073642;
+  --color-text-muted:#657b83;
+  --color-accent:#b58900;        /* amber */
+  --color-accent-hover:#a36d00;
+  --color-secondary:#268bd2;     /* blue highlight */
+  --color-border:#eee8d5;
+  --gradient-bg:linear-gradient(180deg,#fdf6e3 0%,#f7f2dc 100%);
+}
+
+[data-theme='solarink-dark']{
+  --color-bg:#002b36;
+  --color-surface:#073642;
+  --color-surface-alt:#0a3a48;
+  --color-text:#fdf6e3;
+  --color-text-muted:#93a1a1;
+  --color-accent:#b58900;
+  --color-accent-hover:#ffd047;
+  --color-secondary:#268bd2;
+  --color-border:#0e3e4c;
+  --gradient-bg:linear-gradient(180deg,#002b36 0%,#0a3a48 100%);
 }
