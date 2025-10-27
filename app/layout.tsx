@@ -4,6 +4,7 @@ import "./globals.css";
 import DynamicHeader from "@/components/dynamicheader";
 import DynamicFooter from "@/components/dynamicfooter";
 import HeaderSwitcher from "@/components/headerswitcher";
+import PageSwitcher from "@/components/pageswitcher";
 import ThemeSwitcher from "@/components/themeswitcher";
 import FooterSwitcher from "@/components/footerswitcher";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
       >
         <DynamicHeader />
         <HeaderSwitcher />
+        <PageSwitcher />
         <ThemeSwitcher />
         <FooterSwitcher />
         {children}
