@@ -72,6 +72,22 @@ const categories: CategoryInfo[] = [
       { name: "services_10", label: "Services 10", description: "Tabbed pricing & reviews" },
     ],
   },
+  {
+    name: "Portfolio Pages",
+    icon: "🎨",
+    pages: [
+      { name: "portfolio_1", label: "Portfolio 1", description: "Featured project + grid" },
+      { name: "portfolio_2", label: "Portfolio 2", description: "Filterable gallery" },
+      { name: "portfolio_3", label: "Portfolio 3", description: "Editorial case studies" },
+      { name: "portfolio_4", label: "Portfolio 4", description: "Interactive carousel" },
+      { name: "portfolio_5", label: "Portfolio 5", description: "Grid/List view toggle" },
+      { name: "portfolio_6", label: "Portfolio 6", description: "Personal brand intro" },
+      { name: "portfolio_7", label: "Portfolio 7", description: "Timeline/Resume style" },
+      { name: "portfolio_8", label: "Portfolio 8", description: "Tabbed navigation" },
+      { name: "portfolio_9", label: "Portfolio 9", description: "Case study focused" },
+      { name: "portfolio_10", label: "Portfolio 10", description: "Achievement showcase" },
+    ],
+  },
 ];
 
 export default function PageSwitcher() {

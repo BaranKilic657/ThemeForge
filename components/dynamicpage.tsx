@@ -40,6 +40,16 @@ const pages = {
   services_8: dynamic(() => import("@/services/services_8")),
   services_9: dynamic(() => import("@/services/services_9")),
   services_10: dynamic(() => import("@/services/services_10")),
+  portfolio_1: dynamic(() => import("@/portfolio/portfolio_1")),
+  portfolio_2: dynamic(() => import("@/portfolio/portfolio_2")),
+  portfolio_3: dynamic(() => import("@/portfolio/portfolio_3")),
+  portfolio_4: dynamic(() => import("@/portfolio/portfolio_4")),
+  portfolio_5: dynamic(() => import("@/portfolio/portfolio_5")),
+  portfolio_6: dynamic(() => import("@/portfolio/portfolio_6")),
+  portfolio_7: dynamic(() => import("@/portfolio/portfolio_7")),
+  portfolio_8: dynamic(() => import("@/portfolio/portfolio_8")),
+  portfolio_9: dynamic(() => import("@/portfolio/portfolio_9")),
+  portfolio_10: dynamic(() => import("@/portfolio/portfolio_10")),
 };
 
 export default function DynamicPage() {
