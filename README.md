@@ -32,11 +32,13 @@ Switch between carefully crafted light and dark theme pairs:
 - **Cafe** - Cozy, inviting
 - And many more...
 
-### 🧩 **15+ Header Styles**
+### 🧩 **20+ Header Styles**
 Instantly swap between different header designs:
 - Classic - Traditional navigation
 - Center Nav - Centered links
+- Center Reveal - Center reveal effect
 - Compact Icons - Icon-based compact design
+- Diagonal Split - Diagonal split design
 - Dual Layer - Parallax layered effect
 - Elevated Card - Floating card style
 - Floating Nav - Floating navigation bar
@@ -46,17 +48,35 @@ Instantly swap between different header designs:
 - Minimal Bar - Ultra-minimal
 - Pulse - Pulsing accent effects
 - Reveal Slide - Slide animations
+- Scroll Shrink - Shrinking header on scroll
 - Segmented - Segmented controls
 - Split Accent - Split design patterns
+- Timeline - Scroll progress timeline
 - Underline Nav - Underlined active states
+- Wave Bar - Wavy animated header
 
-### 📐 **Multiple Footer Variations**
+### 📐 **20+ Footer Variations**
 Choose from different footer layouts:
-- Classic Grid - Multi-column layout
-- Accent Bar - Highlighted top border
-- Minimal Centered - Simple, centered design
-- Newsletter CTA - Email subscription focus
-- Gradient Wave - Gradient background design
+- Accent Bar - Pulsing accent strip
+- Aurora - Moving gradient background
+- Center Logo - Centered brand focus
+- Classic Grid - Traditional column layout
+- Compact Bar - Minimalist single line
+- Diagonal Split - Angular split design
+- Divider Accent - Accent line separator
+- Dual Layer - Layered depth effect
+- Floating CTA - Elevated call-to-action
+- Glass Panel - Glassmorphism effect
+- Gradient Wave - Wavy gradient overlay
+- Interactive Links - Animated hover links
+- Minimal Centered - Simple centered layout
+- Mosaic Grid - Creative grid pattern
+- Newsletter CTA - Email signup focus
+- Scroll Progress - Progress indicator bar
+- Showcase Grid - Rich content grid
+- Split Accent - Split color sections
+- Stacked Info - Vertically stacked layout
+- Tagline Bar - Tagline with gradient
 
 ### 🎯 **Dynamic Component Switching**
 - **Live Preview** - See changes instantly
@@ -119,13 +139,16 @@ Choose from different footer layouts:
 4. Your selection is automatically saved
 
 ### Switching Headers
-1. Click the **📐 Header button** in the bottom-left corner
-2. Choose from 15+ header styles
+1. Click the **📐 Header button** on the right side (third from bottom)
+2. Choose from 20+ header styles
 3. See the header change in real-time
 4. Selection persists across page refreshes
 
-### Switching Footers *(Coming Soon)*
-Footer switcher will be added with the same dynamic functionality.
+### Switching Footers
+1. Click the **🦶 Footer button** in the bottom-right corner
+2. Browse through 20+ footer styles
+3. Footer updates instantly
+4. Your preference is automatically saved
 
 ---
 
@@ -140,17 +163,21 @@ themeforge/
 ├── components/
 │   ├── themeswitcher.tsx     # Theme switching UI
 │   ├── headerswitcher.tsx    # Header switching UI
-│   └── dynamicheader.tsx     # Dynamic header loader
+│   ├── footerswitcher.tsx    # Footer switching UI
+│   ├── dynamicheader.tsx     # Dynamic header loader
+│   └── dynamicfooter.tsx     # Dynamic footer loader
 ├── headers/
 │   ├── header_classic.tsx
 │   ├── header_centernav.tsx
 │   ├── header_duallayer.tsx
-│   └── ...                   # 15+ header variations
+│   └── ...                   # 20+ header variations
 ├── footers/
 │   ├── footer_classicgrid.tsx
 │   ├── footer_accentbar.tsx
-│   └── ...                   # Multiple footer variations
+│   ├── footer_taglinebar.tsx
+│   └── ...                   # 20+ footer variations
 └── public/
+    └── logo/
 ```
 
 ---
@@ -223,17 +250,19 @@ Reusable classes for consistent styling:
 
 ### Adding a New Footer
 1. Create `footers/footer_myfooter.tsx`
-2. Follow the same pattern as headers
-3. Create dynamic footer loader component
+2. Export default function component
+3. Add to `components/dynamicfooter.tsx` import map
+4. Add to `components/footerswitcher.tsx` footers array
 
 ---
 
 ## 🔮 Roadmap
 
 - [x] Theme switcher with 37+ themes
-- [x] Header switcher with 15+ styles
-- [x] Footer variations
-- [x] Footer switcher component
+- [x] Header switcher with 20+ styles
+- [x] Footer switcher with 20+ variations
+- [x] Dynamic component loading
+- [x] LocalStorage persistence
 - [ ] Page layout templates
 - [ ] Main body/content section variations
 - [ ] Export selected combination as code
@@ -242,6 +271,7 @@ Reusable classes for consistent styling:
 - [ ] Color palette customizer
 - [ ] Component preview grid view
 - [ ] Dark mode auto-detect
+- [ ] Keyboard shortcuts for switchers
 
 ---
 
