@@ -1,85 +1,88 @@
-import React from "react";
+"use client";
 
-export default function About() {
+export default function About5() {
   return (
-    <main
-      className="fade-in"
+    <div
       style={{
-        overflow: "hidden",
-        background: "var(--color-bg)",
-        color: "var(--color-text)",
-        fontFamily: "'Inter', sans-serif",
+        minHeight: "100vh",
+        paddingTop: 80,
       }}
     >
-      {/* ---------- HEADER / HERO ---------- */}
+      {/* ---------- HERO / HEADER ---------- */}
       <section
-        className="bg-gradient-accent fade-up"
+        className="fade-up"
         style={{
-          minHeight: "80vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          padding: "120px 24px 80px",
           textAlign: "center",
-          color: "var(--color-surface)",
-          padding: "0 24px",
         }}
       >
-        <h1
-          style={{
-            fontSize: "3.8rem",
-            fontWeight: 800,
-            lineHeight: 1.1,
-            marginBottom: 24,
-          }}
-        >
-          A note from the founder.
-        </h1>
-        <p style={{ maxWidth: 640, opacity: 0.9, lineHeight: 1.7 }}>
-          The story of why we build, what drives us, and the people who make it all matter.
-        </p>
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div
+            className="text-accent"
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              marginBottom: 16,
+            }}
+          >
+            From the Founder
+          </div>
+          <h1
+            className="text-main"
+            style={{
+              fontWeight: 900,
+              fontSize: "clamp(40px, 6vw, 72px)",
+              lineHeight: 1.15,
+              marginBottom: 24,
+            }}
+          >
+            A Letter to You
+          </h1>
+          <p className="text-muted" style={{ fontSize: 20, lineHeight: 1.7 }}>
+            On design, purpose, and building a studio rooted in empathy.
+          </p>
+        </div>
       </section>
 
       {/* ---------- LETTER BODY ---------- */}
       <section
-        className="bg-surface fade-up"
+        className="fade-up"
         style={{
-          padding: "160px 24px",
-          display: "flex",
-          justifyContent: "center",
+          padding: "60px 24px 140px",
         }}
       >
         <div
-          className="hover-lift shadow-accent-hover"
+          className="bg-surface shadow-accent-hover"
           style={{
-            background: "var(--color-surface-alt)",
-            borderRadius: 20,
+            maxWidth: "800px",
+            margin: "0 auto",
             padding: "80px 60px",
-            maxWidth: 800,
-            textAlign: "left",
+            borderRadius: 20,
             lineHeight: 1.9,
+            fontSize: 18,
           }}
         >
-          <p style={{ marginBottom: 28 }}>
-            <span className="text-highlight" style={{ fontWeight: 700 }}>
-              Dear Reader,
-            </span>
+          <p className="text-muted" style={{ marginBottom: 24 }}>
+            Hi, I'm Alex Morin. I founded NovaSphere in 2015 with a single belief — design should
+            serve people, not platforms.
           </p>
 
           <p className="text-muted" style={{ marginBottom: 24 }}>
-            When I started NovaSphere, it wasn’t about building an agency or a company. It was about
+            When I started NovaSphere, it wasn't about building an agency or a company. It was about
             building a place — a place where creativity could feel like conversation. Where design
-            wasn’t an output, but a dialogue between people and purpose.
+            wasn't an output, but a dialogue between people and purpose.
           </p>
 
           <p className="text-muted" style={{ marginBottom: 24 }}>
             We believe in the small things — the quiet moments in an interface, the way a color
-            shifts as you hover, the pause between motion and stillness. It’s in those tiny details
-            that the magic lives. That’s where empathy turns into design.
+            shifts as you hover, the pause between motion and stillness. It's in those tiny details
+            that the magic lives. That's where empathy turns into design.
           </p>
 
           <p className="text-muted" style={{ marginBottom: 24 }}>
-            Over the years, we’ve worked with people who inspire us — dreamers, engineers,
+            Over the years, we've worked with people who inspire us — dreamers, engineers,
             founders, artists. And every project reminds me of one truth: technology is most
             powerful when it feels human.
           </p>
@@ -113,86 +116,173 @@ export default function About() {
         className="bg-surface-alt fade-up"
         style={{
           padding: "140px 24px",
-          textAlign: "center",
         }}
       >
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <h2 className="text-main" style={{ fontWeight: 800, marginBottom: 16 }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <h2 className="text-main" style={{ fontWeight: 800, marginBottom: 16, textAlign: "center" }}>
             What We Stand For
           </h2>
-          <p className="text-muted" style={{ marginBottom: 80 }}>
+          <p className="text-muted" style={{ marginBottom: 80, textAlign: "center" }}>
             Simplicity. Empathy. Meaning. Everything we create starts from these principles.
           </p>
 
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: 40,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
             }}
           >
             {[
               {
                 title: "Honest Design",
-                desc: "We create work that’s true to its purpose — no gimmicks, no noise.",
+                desc: "We create work that's true to its purpose — no gimmicks, no noise.",
+                gradientClass: "bg-gradient-accent",
               },
               {
                 title: "Human Connection",
                 desc: "We build digital experiences that make people feel something genuine.",
+                gradientClass: "bg-gradient-secondary",
               },
               {
                 title: "Enduring Craft",
                 desc: "Our work aims for longevity — designs that age gracefully with time.",
+                gradientClass: "bg-gradient-accent",
               },
-            ].map((value) => (
+            ].map((value, i) => (
               <div
                 key={value.title}
-                className="bg-surface hover-lift shadow-accent-hover"
+                className="hover-lift"
                 style={{
-                  padding: "40px 32px",
-                  borderRadius: 16,
-                  textAlign: "left",
+                  background: "var(--color-surface)",
+                  padding: "48px 60px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 48,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                <h3 className="text-main" style={{ fontWeight: 700, marginBottom: 8 }}>
-                  {value.title}
-                </h3>
-                <p className="text-muted">{value.desc}</p>
+                <div
+                  className={value.gradientClass}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 6,
+                    height: "100%",
+                  }}
+                />
+                <div
+                  className="text-accent"
+                  style={{
+                    fontSize: 80,
+                    fontWeight: 900,
+                    opacity: 0.05,
+                    minWidth: 100,
+                  }}
+                >
+                  0{i + 1}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <h3 className="text-main" style={{ fontWeight: 800, fontSize: 28, marginBottom: 12 }}>
+                    {value.title}
+                  </h3>
+                  <p className="text-muted" style={{ fontSize: 17, lineHeight: 1.7 }}>{value.desc}</p>
+                </div>
+                <div
+                  className={value.gradientClass}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: "50%",
+                    opacity: 0.15,
+                  }}
+                />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- CLOSING / CTA ---------- */}
+      {/* ---------- CLOSING / CTA WITH QUOTE ---------- */}
       <section
-        className="bg-gradient-secondary fade-up"
+        className="bg-surface-alt fade-up"
         style={{
-          padding: "120px 24px",
+          padding: "140px 24px",
           textAlign: "center",
-          color: "var(--color-surface)",
         }}
       >
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <h2 style={{ fontWeight: 800, marginBottom: 12 }}>
-            Our story continues with yours.
-          </h2>
-          <p style={{ opacity: 0.9, marginBottom: 28 }}>
-            Whether you’re building your first product or reimagining your brand, let’s create
-            something meaningful — together.
-          </p>
-          <button
-            className="btn-gradient hover-lift"
+        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+          <div
+            className="text-accent"
             style={{
-              borderRadius: 10,
-              padding: "12px 22px",
-              fontWeight: 600,
+              fontSize: 80,
+              fontWeight: 900,
+              opacity: 0.1,
+              marginBottom: -40,
             }}
           >
-            Get in Touch
+            "
+          </div>
+          <p
+            className="text-main"
+            style={{
+              fontSize: 28,
+              fontWeight: 600,
+              lineHeight: 1.6,
+              marginBottom: 40,
+            }}
+          >
+            Great design isn't about making things look good. <br />
+            It's about making things feel right.
+          </p>
+          <button
+            className="hover-lift"
+            style={{
+              padding: "16px 48px",
+              borderRadius: 12,
+              fontSize: 17,
+              fontWeight: 700,
+              background: "var(--color-accent)",
+              color: "var(--color-surface)",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Let's Work Together
           </button>
         </div>
       </section>
-    </main>
+
+      {/* ---------- MOBILE CSS ---------- */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          section {
+            padding: 80px 20px !important;
+          }
+          h1 {
+            font-size: 40px !important;
+          }
+          h2 {
+            font-size: 32px !important;
+          }
+          div[style*="padding: 80px 60px"] {
+            padding: 40px 24px !important;
+          }
+          div[style*="display: flex"] div[style*="gap: 48"] {
+            flex-direction: column !important;
+            gap: 24px !important;
+          }
+          div[style*="minWidth: 100"] {
+            font-size: 48px !important;
+            min-width: 60px !important;
+          }
+          div[style*="width: 80"][style*="height: 80"] {
+            display: none !important;
+          }
+        }
+      `}</style>
+    </div>
   );
 }

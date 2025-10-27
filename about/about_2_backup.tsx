@@ -235,70 +235,31 @@ export default function About() {
         </div>
       </section>
 
-      {/* ---------------- CTA FULL WIDTH ---------------- */}
+      {/* ---------------- CTA ---------------- */}
       <section
         className="bg-surface fade-up"
         style={{
-          padding: "0px",
+          padding: "120px 24px",
+          textAlign: "center",
         }}
       >
-        <div
-          className="bg-gradient-accent hover-lift"
-          style={{
-            padding: "100px 24px",
-            textAlign: "center",
-            color: "var(--color-surface)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div
+        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+          <h2 className="text-main" style={{ fontWeight: 800, marginBottom: 12 }}>
+            Let’s create what’s next.
+          </h2>
+          <p className="text-muted" style={{ marginBottom: 28 }}>
+            Explore the intersection of innovation and design with a team that lives to imagine.
+          </p>
+          <button
+            className="btn-gradient hover-lift"
             style={{
-              position: "absolute",
-              width: 400,
-              height: 400,
-              background: "rgba(255,255,255,0.1)",
-              borderRadius: "50%",
-              top: "-20%",
-              right: "-10%",
-              filter: "blur(80px)",
+              borderRadius: 10,
+              padding: "12px 22px",
+              fontWeight: 600,
             }}
-          />
-          <div style={{ maxWidth: "700px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-            <h2 style={{ fontWeight: 900, fontSize: 42, marginBottom: 16 }}>
-              Let's create what's next.
-            </h2>
-            <p style={{ opacity: 0.95, fontSize: 19, marginBottom: 40, lineHeight: 1.7 }}>
-              Explore the intersection of innovation and design with a team that lives to imagine.
-            </p>
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <button
-                className="accent hover-lift"
-                style={{
-                  borderRadius: 10,
-                  padding: "16px 36px",
-                  fontWeight: 700,
-                  background: "rgba(255,255,255,0.95)",
-                  color: "var(--color-accent)",
-                }}
-              >
-                Contact Studio
-              </button>
-              <button
-                className="hover-lift"
-                style={{
-                  borderRadius: 10,
-                  padding: "16px 36px",
-                  fontWeight: 700,
-                  background: "transparent",
-                  border: "2px solid rgba(255,255,255,0.8)",
-                  color: "white",
-                }}
-              >
-                View Work
-              </button>
-            </div>
-          </div>
+          >
+            Contact Studio
+          </button>
         </div>
       </section>
     </main>

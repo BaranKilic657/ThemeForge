@@ -3,6 +3,15 @@ import React from "react";
 export default function Home() {
   return (
     <main style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.8rem !important; }
+          h2 { font-size: 24px !important; }
+          [style*="flex: 1 1"] { flex: 1 1 100% !important; }
+          [style*="flexWrap"] { flex-direction: column !important; }
+        }
+      `}</style>
       {/* ---------------- HERO INTRO ---------------- */}
       <section
         className="bg-surface-alt shadow-accent fade-in"

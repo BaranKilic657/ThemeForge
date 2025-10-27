@@ -3,6 +3,17 @@ import React from "react";
 export default function Home() {
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 24px !important; }
+          h3 { font-size: 18px !important; }
+          [style*="minmax(300px"] { grid-template-columns: 1fr !important; }
+          [style*="minmax(460px"] { grid-template-columns: 1fr !important; }
+          [style*="gridAutoRows"] { grid-auto-rows: 200px !important; }
+        }
+      `}</style>
       {/* ---------------- HERO ---------------- */}
       <section
         className="bg-surface-alt shadow-accent-hover"
@@ -165,7 +176,7 @@ export default function Home() {
       >
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
           <h2 style={{ fontWeight: 700, fontSize: "2rem", marginBottom: 16 }}>
-            “Their designs don’t just look beautiful — they *feel* alive.”
+            “Their designs don’t just look beautiful — they feel alive.”
           </h2>
           <p style={{ opacity: 0.85 }}>— Mira Lopez, CEO of Origin Labs</p>
         </div>

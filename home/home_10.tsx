@@ -1,6 +1,25 @@
 import React from "react";
 
 export default function Home() {
+  const [angle, setAngle] = React.useState(0);
+  const [position, setPosition] = React.useState({ x: 50, y: 50 });
+
+  React.useEffect(() => {
+    let frame: number;
+    let time = 0;
+    const animate = () => {
+      time += 0.01;
+      setAngle((a) => (a + 0.2) % 360);
+      setPosition({
+        x: 50 + Math.sin(time) * 20,
+        y: 50 + Math.cos(time * 0.7) * 15,
+      });
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
     <main
       className="fade-in"
@@ -10,9 +29,20 @@ export default function Home() {
         overflow: "hidden",
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2rem !important; }
+          h2 { font-size: 1.8rem !important; }
+          h3 { font-size: 18px !important; }
+          [style*="minWidth: 420"] { min-width: 280px !important; }
+          [style*="gridTemplateColumns: repeat(2"] { grid-template-columns: 1fr !important; }
+          [style*="width: 480"] { width: 320px !important; height: 320px !important; padding: 40px !important; }
+        }
+      `}</style>
       {/* ---------------- HERO ---------------- */}
       <section
-        className="bg-gradient-accent fade-up"
+        className="fade-up"
         style={{
           minHeight: "100vh",
           display: "flex",
@@ -22,35 +52,22 @@ export default function Home() {
           textAlign: "center",
           padding: "0 24px",
           position: "relative",
+          background: `
+            radial-gradient(
+              circle at ${position.x}% ${position.y}%,
+              color-mix(in srgb, var(--color-secondary) 60%, transparent 40%) 0%,
+              transparent 50%
+            ),
+            linear-gradient(
+              ${angle}deg,
+              color-mix(in srgb, var(--color-accent) 85%, var(--color-secondary) 15%) 0%,
+              color-mix(in srgb, var(--color-accent-hover) 70%, var(--color-bg) 30%) 100%
+            )
+          `,
+          color: "var(--color-surface)",
+          overflow: "hidden",
         }}
       >
-        {/* Ambient Light Glows */}
-        <div
-          className="bg-gradient-secondary float"
-          style={{
-            position: "absolute",
-            top: "15%",
-            left: "20%",
-            width: 220,
-            height: 220,
-            borderRadius: "50%",
-            opacity: 0.15,
-            filter: "blur(80px)",
-          }}
-        />
-        <div
-          className="bg-gradient-accent float"
-          style={{
-            position: "absolute",
-            bottom: "20%",
-            right: "15%",
-            width: 240,
-            height: 240,
-            borderRadius: "50%",
-            opacity: 0.1,
-            filter: "blur(80px)",
-          }}
-        />
 
         <h1
           style={{
@@ -59,9 +76,22 @@ export default function Home() {
             lineHeight: 1.1,
             marginBottom: 24,
             zIndex: 2,
+            position: "relative",
           }}
         >
-          <span className="text-highlight">Illuminating</span> ideas through design.
+          <span
+            style={{
+              background: "linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.85) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textShadow: "0 0 30px rgba(255,255,255,0.3)",
+              fontWeight: 900,
+            }}
+          >
+            Illuminating
+          </span>{" "}
+          ideas through design.
         </h1>
         <p
           style={{

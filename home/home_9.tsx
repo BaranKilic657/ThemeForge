@@ -3,6 +3,17 @@ import React from "react";
 export default function Home() {
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 2rem !important; }
+          h3 { font-size: 20px !important; }
+          [style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 40px !important; }
+          [style*="maxWidth: 1400"] { padding: 0 20px !important; }
+          .metric-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 32px !important; }
+        }
+      `}</style>
       {/* ---------------- FULL-WIDTH HERO WITH INLINE IMAGE ---------------- */}
       <section
         className="bg-surface"

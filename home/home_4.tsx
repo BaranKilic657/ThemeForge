@@ -1,8 +1,66 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const testimonials = [
+    {
+      quote: "They didn't just redesign our brand — they transformed how we think about storytelling.",
+      author: "Marcus Rivera",
+      role: "Founder of Momentum",
+      avatar: "👨‍💼",
+    },
+    {
+      quote: "Every detail was considered, every interaction refined. The result exceeded our wildest expectations.",
+      author: "Sarah Chen",
+      role: "CEO at Elevate Studios",
+      avatar: "👩‍💻",
+    },
+    {
+      quote: "Working with them felt like having an extension of our team, but with 10x the creative firepower.",
+      author: "David Park",
+      role: "Design Director, Nexus",
+      avatar: "👨‍🎨",
+    },
+    {
+      quote: "They took our vision and amplified it beyond what we thought was possible. True design partners.",
+      author: "Emma Thompson",
+      role: "VP Product at Horizon",
+      avatar: "👩‍💼",
+    },
+    {
+      quote: "The attention to craft and strategic thinking made this the best investment we've made in our brand.",
+      author: "James Wu",
+      role: "Founder of Apex Labs",
+      avatar: "👨‍🔬",
+    },
+  ];
+
+  // Auto-rotate testimonials every 6 seconds
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [testimonials.length, isPaused]);
+
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1, .bold-text { font-size: 3.5rem !important; }
+          h2 { font-size: 26px !important; }
+          h3 { font-size: 18px !important; }
+          [style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+          [style*="minmax(500px"] { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       {/* ---------------- SPLIT HERO - Editorial Magazine Style ---------------- */}
       <section
         style={{
@@ -238,11 +296,14 @@ export default function Home() {
         <div style={{ maxWidth: "920px", margin: "0 auto" }}>
           <div
             className="bg-surface-alt shadow-accent-hover hover-lift"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
             style={{
               borderRadius: 24,
               padding: "80px 60px",
               position: "relative",
               overflow: "hidden",
+              transition: "all 0.4s ease",
             }}
           >
             <div
@@ -258,6 +319,25 @@ export default function Home() {
                 filter: "blur(60px)",
               }}
             />
+            
+            {/* Profile Avatar */}
+            <div
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: "50%",
+                background: "var(--color-accent)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 40,
+                margin: "0 auto 32px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+              }}
+            >
+              {testimonials[activeTestimonial].avatar}
+            </div>
+
             <p
               className="text-main"
               style={{
@@ -268,26 +348,53 @@ export default function Home() {
                 position: "relative",
               }}
             >
-              "They didn't just redesign our brand — they transformed how we think about storytelling."
+              "{testimonials[activeTestimonial].quote}"
             </p>
-            <div className="text-accent" style={{ fontWeight: 700, fontSize: 17 }}>
-              — Marcus Rivera, Founder of Momentum
+            <div>
+              <div className="text-accent" style={{ fontWeight: 700, fontSize: 17, marginBottom: 4 }}>
+                {testimonials[activeTestimonial].author}
+              </div>
+              <div className="text-muted" style={{ fontSize: 15 }}>
+                {testimonials[activeTestimonial].role}
+              </div>
             </div>
           </div>
 
-          {/* Carousel Dots */}
-          <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 48 }}>
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
+          {/* Profile Picture Navigation */}
+          <div
+            style={{
+              display: "flex",
+              gap: 16,
+              justifyContent: "center",
+              marginTop: 48,
+              alignItems: "center",
+            }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {testimonials.map((testimonial, i) => (
+              <button
                 key={i}
+                onClick={() => setActiveTestimonial(i)}
+                className="hover-lift"
                 style={{
-                  width: i === 1 ? 40 : 10,
-                  height: 10,
-                  borderRadius: 5,
-                  background: i === 1 ? "var(--color-accent)" : "var(--color-border)",
+                  width: i === activeTestimonial ? 64 : 48,
+                  height: i === activeTestimonial ? 64 : 48,
+                  borderRadius: "50%",
+                  background: "var(--color-accent)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: i === activeTestimonial ? 28 : 20,
+                  border: i === activeTestimonial ? "3px solid var(--color-accent-hover)" : "2px solid var(--color-border)",
+                  cursor: "pointer",
                   transition: "all 0.3s ease",
+                  boxShadow: i === activeTestimonial ? "0 4px 16px rgba(0,0,0,0.2)" : "none",
+                  opacity: i === activeTestimonial ? 1 : 0.6,
                 }}
-              />
+              >
+                {testimonial.avatar}
+              </button>
             ))}
           </div>
         </div>

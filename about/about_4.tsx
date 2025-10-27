@@ -10,6 +10,15 @@ export default function About() {
         color: "var(--color-text)",
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 26px !important; }
+          [style*="gridTemplateColumns"] { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+      `}</style>
+
       {/* ---------- HERO / INTRO ---------- */}
       <section
         className="bg-gradient-accent fade-up"

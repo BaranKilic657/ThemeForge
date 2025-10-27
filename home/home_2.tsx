@@ -3,6 +3,16 @@ import React from "react";
 export default function Home() {
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.8rem !important; }
+          h2 { font-size: 26px !important; }
+          h3 { font-size: 20px !important; }
+          .timeline-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+          .timeline-dot { display: none !important; }
+        }
+      `}</style>
       {/* ---------------- MINIMAL HERO WITH CENTERED FOCUS ---------------- */}
       <section
         className="bg-surface-alt shadow-accent"

@@ -3,6 +3,17 @@ import React from "react";
 export default function Home() {
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 26px !important; }
+          h3 { font-size: 20px !important; }
+          [style*="minmax(480px"] { grid-template-columns: 1fr !important; }
+          [style*="minmax(300px"] { grid-template-columns: 1fr !important; }
+          [style*="rotate"] { transform: none !important; }
+        }
+      `}</style>
       {/* ---------------- HERO SECTION (Split Layout) ---------------- */}
       <section
         className="bg-surface shadow-accent-hover"
@@ -202,13 +213,13 @@ export default function Home() {
         </div>
 
         <div className="fade-right" style={{ maxWidth: 480 }}>
-          <h2 className="text-main" style={{ fontWeight: 800, marginBottom: 12 }}>
+          <h2 className="text-main" style={{ fontWeight: 800, marginBottom: 12, marginLeft: 50 }}>
             A Seamless Blend of Art & Logic.
           </h2>
-          <p className="text-muted" style={{ marginBottom: 28 }}>
+          <p className="text-muted" style={{ marginBottom: 28, marginLeft: 50 }}>
             Our team bridges creative exploration and precise execution, turning vision into tangible experiences that last.
           </p>
-          <a href="#" className="text-accent-hover" style={{ fontWeight: 600 }}>
+          <a href="#" className="text-accent-hover" style={{ fontWeight: 600, marginLeft: 50 }}>
             See Our Process →
           </a>
         </div>

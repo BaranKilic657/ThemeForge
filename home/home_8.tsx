@@ -62,6 +62,18 @@ export default function Home() {
 
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.2rem !important; }
+          h2 { font-size: 26px !important; }
+          h3 { font-size: 20px !important; }
+          [style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .stacked-cards { width: 95% !important; }
+          .tab-content { padding: 40px 24px !important; }
+          [style*="marginLeft"] { margin-left: 0 !important; }
+        }
+      `}</style>
       {/* ---------------- STACKED HERO WITH LAYERED CARDS ---------------- */}
       <section
         className="bg-surface"

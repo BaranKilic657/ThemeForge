@@ -10,6 +10,16 @@ export default function About() {
         color: "var(--color-text)",
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 26px !important; }
+          [style*="gridTemplateColumns"] { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .manifest-block { min-height: 320px !important; padding: 40px 32px !important; }
+        }
+      `}</style>
+
       {/* ---------- HERO ---------- */}
       <section
         className="bg-surface-gradient fade-up"
@@ -78,22 +88,34 @@ export default function About() {
           ].map((item, i) => (
             <div
               key={i}
-              className={`hover-lift shadow-accent-hover ${item.visual}`}
+              className={`hover-lift shadow-accent-hover manifest-block ${item.visual}`}
               style={{
                 borderRadius: 20,
                 padding: "60px 40px",
-                color: "var(--color-surface)",
+                color: i === 2 ? "var(--color-text)" : "var(--color-surface)",
                 minHeight: 380,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                position: "relative",
               }}
             >
-              <div>
+              {i === 2 && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "color-mix(in srgb, var(--color-surface) 95%, transparent)",
+                    borderRadius: 20,
+                    zIndex: 0,
+                  }}
+                />
+              )}
+              <div style={{ position: "relative", zIndex: 1 }}>
                 <h2 style={{ fontWeight: 800, marginBottom: 12 }}>
                   {item.title}
                 </h2>
-                <p style={{ opacity: 0.9, lineHeight: 1.7 }}>{item.desc}</p>
+                <p style={{ opacity: i === 2 ? 0.7 : 0.9, lineHeight: 1.7 }}>{item.desc}</p>
               </div>
               <div
                 className="float"
@@ -101,8 +123,12 @@ export default function About() {
                   width: 50,
                   height: 50,
                   borderRadius: "50%",
-                  background: "rgba(255,255,255,0.2)",
+                  background: i === 2 
+                    ? "color-mix(in srgb, var(--color-text) 8%, transparent)" 
+                    : "color-mix(in srgb, var(--color-surface) 20%, transparent)",
                   alignSelf: "flex-end",
+                  position: "relative",
+                  zIndex: 1,
                 }}
               />
             </div>
@@ -218,32 +244,64 @@ export default function About() {
         </div>
       </section>
 
-      {/* ---------- FOOTER / CTA STRIP ---------- */}
+      {/* ---------- FOOTER / CTA STRIP WITH ICONS ---------- */}
       <section
         className="bg-gradient-secondary fade-up"
         style={{
-          padding: "120px 24px",
+          padding: "140px 24px",
           color: "var(--color-surface)",
           textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
-          <h2 style={{ fontWeight: 800, marginBottom: 12 }}>
+        <div
+          style={{
+            position: "absolute",
+            width: 300,
+            height: 300,
+            background: "color-mix(in srgb, var(--color-surface) 8%, transparent)",
+            borderRadius: "50%",
+            top: "-10%",
+            left: "5%",
+            filter: "blur(60px)",
+          }}
+        />
+        <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+          <div style={{ fontSize: 64, marginBottom: 20 }}>🚀</div>
+          <h2 className="text-main" style={{ fontWeight: 900, fontSize: 38, marginBottom: 16 }}>
             Our design story keeps unfolding.
           </h2>
-          <p style={{ opacity: 0.9, marginBottom: 28 }}>
+          <p className="text-main" style={{ opacity: 0.95, fontSize: 18, marginBottom: 44, lineHeight: 1.7 }}>
             Join us in creating work that questions, delights, and defines what comes next.
           </p>
-          <button
-            className="btn-gradient hover-lift"
-            style={{
-              borderRadius: 10,
-              padding: "12px 22px",
-              fontWeight: 600,
-            }}
-          >
-            View Open Roles
-          </button>
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+            <button
+              className="accent hover-lift"
+              style={{
+                borderRadius: 10,
+                padding: "16px 36px",
+                fontWeight: 700,
+                background: "var(--color-surface)",
+                color: "var(--color-accent)",
+              }}
+            >
+              View Open Roles
+            </button>
+            <button
+              className="hover-lift"
+              style={{
+                borderRadius: 10,
+                padding: "16px 36px",
+                fontWeight: 700,
+                background: "transparent",
+                border: "2px solid var(--color-surface)",
+                color: "var(--color-surface)",
+              }}
+            >
+              Contact Us
+            </button>
+          </div>
         </div>
       </section>
     </main>

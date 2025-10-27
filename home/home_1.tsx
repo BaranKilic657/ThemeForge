@@ -3,7 +3,16 @@ import React from "react";
 export default function Home() {
   return (
     <main className="fade-in" style={{ overflow: "hidden" }}>
-      {/* ---------------- HERO WITH ANIMATED CARDS ---------------- */}
+      <style>{`
+        @media (max-width: 768px) {
+          section { padding: 60px 20px !important; }
+          h1 { font-size: 2.5rem !important; }
+          h2 { font-size: 28px !important; }
+          h3 { font-size: 20px !important; }
+          p { font-size: 16px !important; }
+        }
+      `}</style>
+      {/* ---------------- HERO WITH FLOATING CARDS ---------------- */}
       <section
         className="bg-gradient-accent shadow-accent"
         style={{
@@ -44,10 +53,11 @@ export default function Home() {
 
         <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <h1
+            className="hero-title"
             style={{
               fontSize: "3.5rem",
               fontWeight: 800,
-              lineHeight: 1.1,
+              lineHeight: 1.15,
               marginBottom: 20,
             }}
           >
